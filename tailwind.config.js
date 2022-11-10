@@ -4,11 +4,13 @@ module.exports = {
         "./app/**/*.{js,ts,jsx,tsx}",
         "./pages/**/*.{js,ts,jsx,tsx}",
         "./src/components/**/*.{js,ts,jsx,tsx}",
+        "./src/components/*.{js,ts,jsx,tsx}",
     ],
     theme: {
         extend: {
+
             fontFamily: {
-                sans: 'Inter'
+                sans: 'Inter, sans serif'
             },
 
             colors: {
@@ -29,15 +31,17 @@ module.exports = {
             height: {
                 15: 60,
                 68: 272
-            }
+            },
+
+            screens: {
+                'sm': { 'max': '400px' },
+                '2xl': { 'max': '1535px' },
+                'xl': { 'max': '1200px' },
+                'lg': { 'max': '1023px' },
+                'md': { 'max': '767px' },
+            },
         },
-        screens: {
-            '2xl': { 'max': '1535px' },
-            'xl': { 'max': '1200px' },
-            'lg': { 'max': '1023px' },
-            'md': { 'max': '767px' },
-            'sm': { 'max': '400px' },
-        }
+
     },
     plugins: [],
 }
