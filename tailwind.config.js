@@ -31,6 +31,13 @@ module.exports = {
                 68: 272
             }
         },
+        screens: {
+            '2xl': { 'max': '1535px' },
+            'xl': { 'max': '1200px' },
+            'lg': { 'max': '1023px' },
+            'md': { 'max': '767px' },
+            'sm': { 'max': '400px' },
+        }
     },
     plugins: [],
 }

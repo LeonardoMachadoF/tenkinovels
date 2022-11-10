@@ -1,1 +1,1 @@
-export type IconTypes = 'home' | 'book' | 'instagram' | 'twitter' | 'discord';
+export type IconTypes = 'home' | 'book' | 'instagram' | 'twitter' | 'discord' | 'carretDown';

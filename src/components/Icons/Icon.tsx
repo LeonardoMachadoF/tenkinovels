@@ -3,7 +3,8 @@ import Home from './Home.svg';
 import Book from './Book.svg';
 import Twitter from './Twitter.svg';
 import Instagram from './Instagram.svg';
-import Discord from './Discord.svg'
+import Discord from './Discord.svg';
+import CarretDown from './CarretDown.svg';
 import { IconTypes } from '../../types/IconTypes';
 
 interface Props {
@@ -18,7 +19,8 @@ export const Icon = ({ name, width, alt }: Props) => {
         book: Book,
         instagram: Instagram,
         twitter: Twitter,
-        discord: Discord
+        discord: Discord,
+        carretDown: CarretDown
     }
 
     return (
