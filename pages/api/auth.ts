@@ -10,7 +10,7 @@ const handler: NextApiHandler = async (req, res) => {
         if (!username.trim() || !password.trim())
             return res.json({ message: 'Dados insuficientes!' })
 
-        let user = await prisma.user.findUnique({ where: { username } });
+        let user = await prisma.user.findUnique({ where: { username: username as string } });
         if (!user) {
             return res.status(400).json({ message: 'Usuario e/ou senha incorretos!' })
         }
