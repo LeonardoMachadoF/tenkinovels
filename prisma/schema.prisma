@@ -1,0 +1,22 @@
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+    provider             = "mysql"
+    url                  = env("DATABASE_URL")
+    referentialIntegrity = "prisma"
+}
+
+model User {
+    id        String  @id @default(cuid())
+    googleId  String  @unique
+    email     String  @unique
+    password  String?
+    name      String
+    avatarUrl String
+    isAdmin   Boolean @default(false)
+
+    @@map("users")
+}
