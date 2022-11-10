@@ -21,12 +21,12 @@ const Home: NextPage = () => {
                 <main className='w-[94%] m-auto'>
                     <TitleNews title='Nossos Projetos' iconName='book' />
                     <section className='mt-5 flex gap-5 max-w-[100vw] overflow-x-scroll pb-4'>
-                        {numbersOfNovels.map(nv => <NovelLogo />)}
+                        {numbersOfNovels.map((nv, index) => <NovelLogo key={index} />)}
                     </section>
 
                     <TitleNews title='Últimos Uploads' iconName='book' />
                     <section className='mt-5 flex justify-between flex-wrap gap-8'>
-                        {numbersOfNovels.map(nv => <LastUpdateWithChapters />)}
+                        {numbersOfNovels.map((nv, index) => <LastUpdateWithChapters key={index} />)}
                     </section>
                 </main>
 
