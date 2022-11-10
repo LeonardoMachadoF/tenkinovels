@@ -10,13 +10,16 @@ datasource db {
 }
 
 model User {
-    id        String  @id @default(cuid())
-    googleId  String  @unique
-    email     String  @unique
-    password  String?
-    name      String
-    avatarUrl String
-    isAdmin   Boolean @default(false)
+    id       String @id @default(cuid())
+    username String @unique
+    password String
+    role     Role   @default(USER)
 
     @@map("users")
+}
+
+enum Role {
+    USER
+    ADMIN
+    UPLOADER
 }
