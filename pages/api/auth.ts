@@ -25,7 +25,7 @@ const handler: NextApiHandler = async (req, res) => {
             expiresIn: 60 * 60 * 24, //1 day
         });
 
-        return res.json({ token })
+        return res.json({ token });
     }
 
     return res.status(404).json({});
