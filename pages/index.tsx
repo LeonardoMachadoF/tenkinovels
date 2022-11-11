@@ -15,7 +15,7 @@ const Home = ({ novels }: Props) => {
     const numbersOfNovels = ['', '', '', '', '', '', '', '', ''];
 
     return (
-        <Template>
+        <Template currentPage='home'>
             <main className='w-[94%] max-w-[94vw] m-auto'>
                 <TitleNews title='Nossos Projetos' iconName='book' />
                 <section className='mt-5 flex gap-5 max-w-full overflow-x-scroll pb-4'>

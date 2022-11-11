@@ -1,5 +1,4 @@
 import Image from "next/image";
-import novelTmp from '../../tmp/noveltmp.webp'
 import { Template } from "../../src/components/Template"
 import { NovelChapters } from "../../src/components/NovelChapters";
 import { GetStaticPaths, GetStaticProps } from "next";
@@ -14,9 +13,8 @@ interface Props {
 }
 
 const Novel = ({ novel }: Props) => {
-
     return (
-        <Template>
+        <Template currentPage='novel' novel={{ chapter: novel.chapter[0]?.chapter || null, volume: novel.chapter[0]?.volume || null }}>
             <div className="w-[94%] max-w-[94vw] m-auto">
                 <main className="mt-14">
                     <div className="flex gap-4 md:flex-col md:items-center md:text-center">
@@ -96,7 +94,11 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
             slug: slug as string
         },
         include: {
-            chapter: true,
+            chapter: {
+                orderBy: {
+                    chapter: 'desc'
+                }
+            },
             genres: {
                 include: {
                     genre: {

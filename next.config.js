@@ -4,7 +4,7 @@ const nextConfig = {
     swcMinify: true,
     images: {
         domains: ['https://files.tenkimangas.com.br', 'files.tenkimangas.com.br'],
-    },
+    }
 }
 
 
