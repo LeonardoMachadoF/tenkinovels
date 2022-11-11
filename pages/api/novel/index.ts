@@ -74,30 +74,32 @@ handler.post(async (req: NextApiRequestWithFile, res: NextApiResponse) => {
         return res.status(404).json({ message: 'Ocorreu um erro na criação da novel' })
     }
 
-    genres.split(';').map(async (genre: string) => {
-        let connect = await prisma.genre.findFirst({ where: { slug: genre } });
-        if (connect) {
-            await prisma.genresOnNovels.create({
-                data: {
-                    novel_id: novel!.id as string,
-                    genre_id: connect.id,
-                }
-            })
-        } else {
-            let newGenre = await prisma.genre.create({
-                data: {
-                    name: genre[0].toUpperCase() + genre.substring(1),
-                    slug: genre
-                }
-            })
-            await prisma.genresOnNovels.create({
-                data: {
-                    novel_id: novel!.id,
-                    genre_id: newGenre.id
-                }
-            })
-        }
-    })
+    await Promise.all(
+        genres.split(';').map(async (genre: string) => {
+            let connect = await prisma.genre.findFirst({ where: { slug: genre } });
+            if (connect) {
+                await prisma.genresOnNovels.create({
+                    data: {
+                        novel_id: novel!.id as string,
+                        genre_id: connect.id,
+                    }
+                })
+            } else {
+                let newGenre = await prisma.genre.create({
+                    data: {
+                        name: genre[0].toUpperCase() + genre.substring(1),
+                        slug: genre
+                    }
+                })
+                await prisma.genresOnNovels.create({
+                    data: {
+                        novel_id: novel!.id,
+                        genre_id: newGenre.id
+                    }
+                })
+            }
+        })
+    )
 
 
     return res.status(201).json({ novel });
