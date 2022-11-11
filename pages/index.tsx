@@ -6,6 +6,7 @@ import { Template } from '../src/components/Template'
 import { TitleNews } from '../src/components/TitleNews'
 import prisma from '../src/services/backServices/prisma'
 
+
 interface Props {
     novels: Novel[];
 }

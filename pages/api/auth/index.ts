@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next";
-import prisma from '../../src/services/backServices/prisma';
+import prisma from '../../../src/services/backServices/prisma';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
