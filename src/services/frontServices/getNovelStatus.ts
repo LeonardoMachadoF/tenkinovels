@@ -1,6 +1,6 @@
-export type StatuType = "ongoing" | "complete" | "hiatus"
+export type StatusType = "ongoing" | "complete" | "hiatus"
 
-export const getNovelStatus = (status: StatuType) => {
+export const getNovelStatus = (status: StatusType) => {
     const statuses = {
         ongoing: 'Em lançamento',
         complete: 'Finalizada',

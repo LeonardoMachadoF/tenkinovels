@@ -6,7 +6,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import prisma from '../../src/services/backServices/prisma';
 import { NovelPageNovelTypes } from "../../src/types/FrontTypes/NovelPageNovelTypes";
 import { getCloudflareUrl } from "../../src/services/frontServices/getCloudflareUrl";
-import { getNovelStatus, StatuType } from "../../src/services/frontServices/getNovelStatus";
+import { getNovelStatus, StatusType } from "../../src/services/frontServices/getNovelStatus";
 import Link from "next/link";
 
 interface Props {
@@ -32,7 +32,7 @@ const Novel = ({ novel }: Props) => {
                         </div>
                         <div className="">
                             <div className="text-xl pt-8 md:text-lg">
-                                <p>Status: {getNovelStatus(novel.status as StatuType)}</p>
+                                <p>Status: {getNovelStatus(novel.status as StatusType)}</p>
                                 <p>Último lançamento: há 2 dias</p>
                                 <p>Autor: {novel.author}</p>
                             </div>
