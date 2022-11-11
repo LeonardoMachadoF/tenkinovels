@@ -1,17 +1,24 @@
-import type { NextPage } from 'next'
+import { Novel } from '@prisma/client'
+import type { GetStaticProps } from 'next'
 import { LastUpdateWithChapters } from '../src/components/LastUpdateWithChapters'
 import { NovelLogo } from '../src/components/NovelLogo'
 import { Template } from '../src/components/Template'
 import { TitleNews } from '../src/components/TitleNews'
+import prisma from '../src/services/backServices/prisma'
 
-const Home: NextPage = () => {
+interface Props {
+    novels: Novel[];
+}
+
+const Home = ({ novels }: Props) => {
     const numbersOfNovels = ['', '', '', '', '', '', '', '', ''];
+
     return (
         <Template>
             <main className='w-[94%] max-w-[94vw] m-auto'>
                 <TitleNews title='Nossos Projetos' iconName='book' />
                 <section className='mt-5 flex gap-5 max-w-full overflow-x-scroll pb-4'>
-                    {numbersOfNovels.map((nv, index) => <NovelLogo key={index} />)}
+                    {novels.map(novel => <NovelLogo data={novel} key={novel.id} />)}
                 </section>
 
                 <TitleNews title='Últimos Uploads' iconName='book' />
@@ -22,6 +29,22 @@ const Home: NextPage = () => {
         </Template>
     )
 
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+    const novels = await prisma.novel.findMany({
+        orderBy: {
+            created_at: 'desc'
+        },
+        take: 12
+    })
+
+    return {
+        props: {
+            novels: JSON.parse(JSON.stringify(novels)),
+        },
+        revalidate: 60 * 60
+    }
 }
 
 export default Home

@@ -9,17 +9,83 @@ datasource db {
     referentialIntegrity = "prisma"
 }
 
-model User {
-    id       String @id @default(cuid())
-    username String @unique
-    password String
-    role     Role   @default(USER)
-
-    @@map("users")
-}
-
 enum Role {
     USER
     ADMIN
     UPLOADER
+}
+
+model User {
+    id           String  @id @default(cuid())
+    username     String  @unique
+    password     String
+    owned_novels Novel[]
+    role         Role    @default(USER)
+
+    @@map("users")
+}
+
+model Novel {
+    id         String   @id @default(cuid())
+    title      String
+    slug       String   @unique
+    sinopse    String   @db.Text
+    views      Int      @default(0)
+    image_url  String   @default("http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-200x200.png")
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+    status     String   @default("ongoing")
+    author     String?
+
+    user      User             @relation(fields: [user_id], references: [id])
+    origin    Origin           @relation(fields: [origin_id], references: [id])
+    chapter   Chapter[]
+    genres    GenresOnNovels[]
+    user_id   String
+    origin_id String
+}
+
+model Origin {
+    id     String  @id @default(cuid())
+    slug   String  @unique
+    name   String
+    novels Novel[]
+
+    @@map("origins")
+}
+
+model Genre {
+    id     String           @id @default(cuid())
+    slug   String           @unique
+    name   String
+    novels GenresOnNovels[]
+
+    @@map("genres")
+}
+
+model GenresOnNovels {
+    id String @id @default(cuid())
+
+    novel    Novel  @relation(fields: [novel_id], references: [id])
+    genre    Genre  @relation(fields: [genre_id], references: [id])
+    novel_id String
+    genre_id String
+
+    @@unique([novel_id, genre_id])
+    @@map("genres_on_novels")
+}
+
+model Chapter {
+    id         String   @id @default(cuid())
+    title      String?
+    slug       String   @unique
+    volume     Int
+    chapter    Int
+    content    String   @db.Text
+    views      Int
+    created_at DateTime @default(now())
+    Novel      Novel    @relation(fields: [novel_id], references: [id])
+    novel_id   String
+
+    @@map("chapters")
 }
