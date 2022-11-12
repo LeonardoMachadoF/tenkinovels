@@ -7,7 +7,7 @@ export const upload = multer({
         filename: (req, file, cb) => {
             let allowed = ['jpeg', 'jpg', 'png', 'webp', 'avif']
             allowed.includes(file.mimetype.split('/')[1]) === false ? cb(new Error('image not allowed'), '') :
-                cb(null, file.originalname.split(' ').join('') + randomUUID() + '.' + file.mimetype.split('/')[1])
+                cb(null, file.originalname.split(' ').join('').split("'").join('') + randomUUID() + '.' + file.mimetype.split('/')[1])
         },
     }),
     limits: {

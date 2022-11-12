@@ -16,6 +16,7 @@ interface Props {
 
 const Novel = ({ novel }: Props) => {
     const [sorted, setSorted] = useState(true);
+    const [seeMore, setSeeMore] = useState(true);
 
     const volumes: number[] = []
     const tmpChapters = [
@@ -61,18 +62,30 @@ const Novel = ({ novel }: Props) => {
                                 <p>Último lançamento: há 2 dias</p>
                                 <p>Autor: {novel.author}</p>
                             </div>
-                            <div className="flex py-2 gap-4 items-center text-white flex-wrap text-xl md:text-lg md:items-center md:justify-center">
-                                {novel.genres.map((genre) => {
-                                    return (
-                                        <Link
-                                            className="bg-yellow-700 my-2 px-3 py-[2px] rounded-lg md:px-2 md:py-[1px]"
-                                            href={`/genres/${genre.genre.slug}`}
-                                            key={genre.id}
-                                        >
-                                            {genre.genre.name}
-                                        </Link>
-                                    )
+                            <div className="flex py-2 max-w-4xl items-center text-white flex-wrap text-xl md:text-lg md:items-center md:justify-center">
+                                {novel.genres.map((genre, index) => {
+                                    return index < 8 ?
+                                        (
+                                            <Link
+                                                className="bg-yellow-700 my-2 px-2 mr-2 rounded-lg "
+                                                href={`/genres/${genre.genre.slug}`}
+                                                key={genre.id}
+                                            >
+                                                {genre.genre.name}
+                                            </Link>
+                                        ) : seeMore ? (
+                                            <Link
+                                                className="bg-yellow-700 my-2 px-2 mr-2 rounded-lg "
+                                                href={`/genres/${genre.genre.slug}`}
+                                                key={genre.id}
+                                            >
+                                                {genre.genre.name}
+                                            </Link>
+                                        ) : null
                                 })}
+                                {novel.genres.length >= 8 &&
+                                    <button className="text-sm text-gray-200 " onClick={() => setSeeMore(!seeMore)}>{seeMore ? 'Ver menos' : 'Ver mais'}</button>
+                                }
                             </div>
                             <div className="h-[102px] md:max-w-[90vw] max-w-[50vw] w-[940px] overflow-y-scroll md:overflow-y-visible md:h-fit">
                                 {novel.sinopse}
