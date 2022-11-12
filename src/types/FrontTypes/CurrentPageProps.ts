@@ -1,1 +1,1 @@
-export type CurrentPageProps = 'home' | 'novel';
+export type CurrentPageProps = 'home' | 'novel' | 'chapterAdmin' | 'novelAdmin' | 'login';

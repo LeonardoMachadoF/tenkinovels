@@ -1,8 +1,12 @@
-import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
-import jwt from 'jsonwebtoken'
+import dynamic from 'next/dynamic';
+import 'react-quill/dist/quill.snow.css';
+import React, { useState } from 'react';
+import { GetServerSideProps } from 'next';
 import prisma from '../../src/services/backServices/prisma'
 import { handleAuthentication } from '../../src/services/backServices/handleAuthentication';
+import { Template } from '../../src/components/Template';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 
 interface Props {
@@ -14,12 +18,27 @@ interface Props {
 
 const AdminChapter = ({ novelSlug, volume, chapter, userId }: Props) => {
     console.log({ novelSlug, volume, chapter, userId })
+    const [value, setValue] = useState('');
+    let newImage = value.replace('a href', 'img src').replace('>img</a>', '/>').replace('rel', 'alt').replace(`target="_blank"`, "class='m-auto' loading='eager'");
+    while (newImage.indexOf('a href') > -1) {
+        newImage = newImage.replace('a href', 'img src').replace('>img</a>', '/>').replace('rel', 'alt').replace(`target="_blank"`, "class='m-auto' loading='lazy'");
+    }
     return (
-        <div className='flex flex-col text-gray-900'>
-
-        </div>
-    );
+        <Template currentPage='chapterAdmin'>
+            <div className=' text-gray-900'>
+                <div className='w-[660px] max-w-[100vw] m-auto'>
+                    <ReactQuill value={value} onChange={setValue} style={{ backgroundColor: '#eee', height: '300px', paddingBottom: '45px' }} />
+                </div>
+                <pre
+                    dangerouslySetInnerHTML={{ __html: newImage }}
+                    className='w-[1000px] max-w-[100vw] whitespace-pre-wrap text-gray-100'
+                ></pre>
+            </div>
+        </Template>
+    )
 }
+
+
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const { authToken: token } = nookies.get(ctx)

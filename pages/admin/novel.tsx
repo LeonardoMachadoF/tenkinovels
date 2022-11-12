@@ -1,12 +1,13 @@
 import { GetServerSideProps } from 'next';
 import nookies from 'nookies';
+import { Template } from '../../src/components/Template';
 import { handleAuthentication } from '../../src/services/backServices/handleAuthentication';
 
 const AdminNovel = () => {
     return (
-        <div className='flex flex-col text-gray-900'>
-
-        </div>
+        <Template currentPage='novelAdmin'>
+            <div></div>
+        </Template>
     );
 }
 

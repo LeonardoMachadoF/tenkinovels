@@ -21,13 +21,13 @@ const Header = ({ currentPage, novel }: Props) => {
     let { username, role } = useContext(AuthContext);
 
     const adminsOptions = {
-        home: <Link href='/admin/novel' className="sm:hidden">Criar nova Novel</Link>,
-        novel: <Link href={`/admin/chapter?novelslug=${router.asPath.split('novel/')[1]}`} className="sm:hidden">Criar novo Capítulo</Link>
+        home: <Link href='/admin/novel' className="sm:hidden">Nova Novel</Link>,
+        novel: <Link href={`/admin/chapter?novelslug=${router.asPath.split('novel/')[1]}`} className="sm:hidden">Novo Capítulo</Link>,
     }
 
     if (username && role === 'ADMIN' && novel && novel.chapter && novel.volume) {
         const query = `/admin/chapter?novelslug=${router.asPath.split('novel/')[1]}&volume=${novel.volume < 10 ? `0${novel.volume}` : novel.volume}&chapter=${(novel.chapter + 1) < 10 ? `0${novel.chapter + 1}` : novel.chapter + 1}`
-        adminsOptions.novel = <Link href={query} className="sm:hidden">Criar novo Capítulo</Link>
+        adminsOptions.novel = <Link href={query} className="sm:hidden">Novo Capítulo</Link>
     }
 
     return (
@@ -43,7 +43,7 @@ const Header = ({ currentPage, novel }: Props) => {
                 </div>
 
                 <div>
-                    {username && role === 'ADMIN' &&
+                    {username && role === 'ADMIN' && (currentPage === 'home' || currentPage === 'novel') &&
                         adminsOptions[currentPage]
                     }
                 </div>

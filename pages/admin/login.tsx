@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import nookies from 'nookies';
 import { FormEvent, useState } from "react";
+import { Template } from '../../src/components/Template';
 
 const Login = () => {
     const router = useRouter();
@@ -29,13 +30,15 @@ const Login = () => {
         }
     }
     return (
-        <div className='flex flex-col text-gray-900'>
-            <form onSubmit={handleLogin} className="flex flex-col w-40 m-2 gap-2">
-                <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-                <button type="submit" className="text-white font-bold">Enviar</button>
-            </form>
-        </div>
+        <Template currentPage='login'>
+            <div className='flex flex-col text-gray-900'>
+                <form onSubmit={handleLogin} className="flex flex-col w-40 m-2 gap-2">
+                    <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+                    <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                    <button type="submit" className="text-white font-bold">Enviar</button>
+                </form>
+            </div>
+        </Template>
     );
 }
 
