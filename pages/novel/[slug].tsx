@@ -8,6 +8,7 @@ import { getCloudflareUrl } from "../../src/services/frontServices/getCloudflare
 import { getNovelStatus, StatusType } from "../../src/services/frontServices/getNovelStatus";
 import Link from "next/link";
 import { useState } from "react";
+import { HeadSrc } from "../../src/components/HeadSrc";
 
 interface Props {
     novel: NovelPageNovelTypes
@@ -39,6 +40,7 @@ const Novel = ({ novel }: Props) => {
 
     return (
         <Template currentPage='novel' novel={{ chapter: novel.chapter[0]?.chapter || null, volume: novel.chapter[0]?.volume || null }}>
+            <HeadSrc title={novel.title} />
             <div className="w-[94%] max-w-[94vw] m-auto">
                 <main className="mt-14">
                     <div className="flex gap-4 md:flex-col md:items-center md:text-center">

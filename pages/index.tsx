@@ -1,5 +1,7 @@
 import { Novel } from '@prisma/client'
 import type { GetStaticProps } from 'next'
+import Head from 'next/head'
+import { HeadSrc } from '../src/components/HeadSrc'
 import { LastUpdateWithChapters } from '../src/components/LastUpdateWithChapters'
 import { NovelLogo } from '../src/components/NovelLogo'
 import { Template } from '../src/components/Template'
@@ -16,6 +18,7 @@ const Home = ({ novels }: Props) => {
 
     return (
         <Template currentPage='home'>
+            <HeadSrc title='Home' />
             <main className='w-[94%] max-w-[94vw] m-auto'>
                 <TitleNews title='Nossos Projetos' iconName='book' />
                 <section className='mt-5 flex gap-5 max-w-full overflow-x-scroll pb-4'>

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import nookies from 'nookies';
 import { FormEvent, useState } from "react";
+import { HeadSrc } from '../../src/components/HeadSrc';
 import { Template } from '../../src/components/Template';
 
 const Login = () => {
@@ -31,6 +32,7 @@ const Login = () => {
     }
     return (
         <Template currentPage='login'>
+            <HeadSrc title='Login' />
             <div className='flex flex-col text-gray-900'>
                 <form onSubmit={handleLogin} className="flex flex-col w-40 m-2 gap-2">
                     <input type="text" value={username} onChange={e => setUsername(e.target.value)} />

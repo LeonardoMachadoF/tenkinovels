@@ -6,6 +6,7 @@ import { GetServerSideProps } from 'next';
 import prisma from '../../src/services/backServices/prisma'
 import { handleAuthentication } from '../../src/services/backServices/handleAuthentication';
 import { Template } from '../../src/components/Template';
+import { HeadSrc } from '../../src/components/HeadSrc';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 
@@ -25,6 +26,7 @@ const AdminChapter = ({ novelSlug, volume, chapter, userId }: Props) => {
     }
     return (
         <Template currentPage='chapterAdmin'>
+            <HeadSrc title='Novo Capítulo' />
             <div className=' text-gray-900'>
                 <div className='w-[660px] max-w-[100vw] m-auto'>
                     <ReactQuill value={value} onChange={setValue} style={{ backgroundColor: '#eee', height: '300px', paddingBottom: '45px' }} />
