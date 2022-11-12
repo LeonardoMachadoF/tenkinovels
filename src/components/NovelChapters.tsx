@@ -1,44 +1,33 @@
-export const NovelChapters = () => {
+import { numberFormatter } from "../services/frontServices/numberFormatter";
+import { ChapterLabel } from "./ChapterLabel";
+
+interface Props {
+    chapters: {
+        chapter: number;
+        volume: number;
+        title: string;
+        created_at: Date;
+        scan: string;
+    }[]
+}
+
+
+export const NovelChapters = ({ chapters }: Props) => {
     return (
         <div className="mb-4">
-            <h2 className="text-lg mb-2">Volume 3</h2>
+            <h2 className="text-lg mb-2">Volume {numberFormatter(chapters[0].volume)}</h2>
             <section className="flex flex-col gap-2">
-                <article className="flex justify-between">
-                    <div>
-                        <h1>Cap.11 - Lorem ipsum dolor sit amet consectetur aidem ducimus rerum </h1>
-                        <span>Random Scans</span>
-                    </div>
-                    <span>
-                        Há 10 minutos
-                    </span>
-                </article>
-                <article className="flex justify-between">
-                    <div>
-                        <h1>Cap.11 - Lorem ipsum dolor sit amet consectetur aidem ducimus rerum </h1>
-                        <span>Random Scans</span>
-                    </div>
-                    <span>
-                        Há 10 minutos
-                    </span>
-                </article>
-                <article className="flex justify-between">
-                    <div>
-                        <h1>Cap.11 - Lorem ipsum dolor sit amet consectetur aidem ducimus rerum </h1>
-                        <span>Random Scans</span>
-                    </div>
-                    <span>
-                        Há 10 minutos
-                    </span>
-                </article>
-                <article className="flex justify-between">
-                    <div>
-                        <h1>Cap.11 - Lorem ipsum dolor sit amet consectetur aidem ducimus rerum </h1>
-                        <span>Random Scans</span>
-                    </div>
-                    <span>
-                        Há 10 minutos
-                    </span>
-                </article>
+                {chapters.map((chapter, index) => {
+                    return (
+                        <ChapterLabel
+                            chapter={chapter.chapter}
+                            title={chapter.title}
+                            created_at={chapter.created_at}
+                            scan={chapter.scan}
+                            key={index}
+                        />
+                    )
+                })}
             </section>
         </div>
     )

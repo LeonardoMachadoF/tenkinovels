@@ -22,7 +22,7 @@ const Header = ({ currentPage, novel }: Props) => {
 
     const adminsOptions = {
         home: <Link href='/admin/novel' className="sm:hidden">Criar nova Novel</Link>,
-        novel: <Link href={`/admin/chapter?novelid=${router.asPath.split('novel/')[1]}`} className="sm:hidden">Criar novo Capítulo</Link>
+        novel: <Link href={`/admin/chapter?novelslug=${router.asPath.split('novel/')[1]}`} className="sm:hidden">Criar novo Capítulo</Link>
     }
 
     if (username && role === 'ADMIN' && novel && novel.chapter && novel.volume) {

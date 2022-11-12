@@ -7,12 +7,36 @@ import { NovelPageNovelTypes } from "../../src/types/FrontTypes/NovelPageNovelTy
 import { getCloudflareUrl } from "../../src/services/frontServices/getCloudflareUrl";
 import { getNovelStatus, StatusType } from "../../src/services/frontServices/getNovelStatus";
 import Link from "next/link";
+import { useState } from "react";
 
 interface Props {
     novel: NovelPageNovelTypes
 }
 
 const Novel = ({ novel }: Props) => {
+    const [sorted, setSorted] = useState(true);
+
+    const volumes: number[] = []
+    const tmpChapters = [
+        { chapter: 1, volume: 1, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
+        { chapter: 1, volume: 1, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
+        { chapter: 2, volume: 1, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
+        { chapter: 3, volume: 1, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
+        { chapter: 4, volume: 1, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
+        { chapter: 5, volume: 2, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
+        { chapter: 6, volume: 2, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
+        { chapter: 7, volume: 2, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
+        { chapter: 8, volume: 2, title: 'random', created_at: new Date(), scan: 'Nobody Scans' }
+    ]
+
+    tmpChapters.map(chapter => {
+        if (!volumes.includes(chapter.volume)) {
+            volumes.push(chapter.volume)
+        }
+    });
+    tmpChapters.sort((a, b) => a.chapter > b.chapter ? -1 : 1)
+    volumes.sort((a, b) => a > b ? -1 : 1)
+
     return (
         <Template currentPage='novel' novel={{ chapter: novel.chapter[0]?.chapter || null, volume: novel.chapter[0]?.volume || null }}>
             <div className="w-[94%] max-w-[94vw] m-auto">
@@ -55,13 +79,31 @@ const Novel = ({ novel }: Props) => {
                 </main>
                 <div>
                     <div className="flex items-center justify-between mt-16 text-white">
-                        <button className="bg-yellow-700 rounded-lg px-2 py-[2px]">Crescente</button>
+                        <button
+                            className="bg-yellow-700 rounded-lg px-2 py-[2px]"
+                            onClick={() => setSorted(!sorted)}
+                        >
+                            Crescente
+                        </button>
                         <button className="bg-yellow-700 rounded-lg px-2 py-[2px]">Expandir</button>
                     </div>
                     <div className="mt-6 flex flex-col">
-                        <NovelChapters />
-                        <NovelChapters />
-                        <NovelChapters />
+                        {sorted && volumes.map((volume) => {
+                            return (
+                                <NovelChapters
+                                    chapters={tmpChapters.filter(chapter => chapter.volume === volume)}
+                                    key={volume}
+                                />
+                            )
+                        })}
+                        {!sorted && volumes.reverse().map((volume) => {
+                            return (
+                                <NovelChapters
+                                    chapters={tmpChapters.reverse().filter(chapter => chapter.volume === volume)}
+                                    key={volume}
+                                />
+                            )
+                        })}
                     </div>
                 </div>
             </div>

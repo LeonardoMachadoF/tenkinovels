@@ -16,11 +16,12 @@ enum Role {
 }
 
 model User {
-    id           String  @id @default(cuid())
-    username     String  @unique
+    id           String    @id @default(cuid())
+    username     String    @unique
     password     String
     owned_novels Novel[]
-    role         Role    @default(USER)
+    role         Role      @default(USER)
+    Chapter      Chapter[]
 
     @@map("users")
 }
@@ -86,6 +87,8 @@ model Chapter {
     created_at DateTime @default(now())
     Novel      Novel    @relation(fields: [novel_id], references: [id])
     novel_id   String
+    user       User     @relation(fields: [user_id], references: [id])
+    user_id    String
 
     @@map("chapters")
 }
