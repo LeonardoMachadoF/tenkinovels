@@ -36,7 +36,8 @@ handler.post(async (req: NextApiRequestWithFile, res: NextApiResponse) => {
         return res.status(404).json({ message: 'Unauthorized' })
     }
 
-    let { title, genres, sinopse, author, user_id, origin_slug } = req.body;
+    let { title, genres, sinopse, author, origin_slug } = req.body;
+    console.log({ title, genres, sinopse, author, origin_slug })
 
     let slug = title.split(' ').join('-').toLowerCase().split('?').join('');
     let credentials = await storageApi.getCredentials();
@@ -52,7 +53,7 @@ handler.post(async (req: NextApiRequestWithFile, res: NextApiResponse) => {
 
             user: {
                 connect: {
-                    id: user_id
+                    id: user.id
                 }
             },
 

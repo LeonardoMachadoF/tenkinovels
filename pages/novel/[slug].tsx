@@ -41,21 +41,22 @@ const Novel = ({ novel }: Props) => {
     return (
         <Template currentPage='novel' novel={{ chapter: novel.chapter[0]?.chapter || null, volume: novel.chapter[0]?.volume || null }}>
             <HeadSrc title={novel.title} />
-            <div className="w-[94%] max-w-[94vw] m-auto">
+            <div className="w-[100%] md:max-w-[94vw] m-auto">
                 <main className="mt-14">
                     <div className="flex gap-4 md:flex-col md:items-center md:text-center">
                         <div className="min-w-fit">
-                            <h1 className="text-3xl mb-1">{novel.title}</h1>
-                            <Image
-                                src={getCloudflareUrl(novel.image_url)}
-                                width={180}
-                                height={242}
-                                alt='Capa da novel'
-                                priority
-                            />
+                            <h1 className="text-3xl absolute md:left-0 md:right-0">{novel.title}</h1>
+                            <div className="relative w-44 h-64 top-10">
+                                <Image
+                                    src={getCloudflareUrl(novel.image_url)}
+                                    fill
+                                    alt='Capa da novel'
+                                    priority
+                                />
+                            </div>
                         </div>
                         <div className="">
-                            <div className="text-xl pt-8 md:text-lg">
+                            <div className="text-xl pt-8 md:pt-0 md:text-lg">
                                 <p>Status: {getNovelStatus(novel.status as StatusType)}</p>
                                 <p>Último lançamento: há 2 dias</p>
                                 <p>Autor: {novel.author}</p>
@@ -73,7 +74,7 @@ const Novel = ({ novel }: Props) => {
                                     )
                                 })}
                             </div>
-                            <div className="h-[102px] overflow-y-scroll md:overflow-y-visible md:h-fit">
+                            <div className="h-[102px] md:max-w-[90vw] max-w-[50vw] w-[940px] overflow-y-scroll md:overflow-y-visible md:h-fit">
                                 {novel.sinopse}
                             </div>
                         </div>
