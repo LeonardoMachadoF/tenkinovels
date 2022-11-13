@@ -13,13 +13,12 @@ export const NovelLogo = ({ data }: Props) => {
         <article className="max-w-[182px] min-w-[182px] md:w-32 md:min-w-[120px]">
             <div className="bg-black h-64 rounded-2xl md:max-h-44">
                 <Link href={`/novel/${data.slug}`}>
-                    <Image
+                    <img
                         src={getCloudflareUrl(data.image_url)}
                         alt='Capa de nossos projetos'
                         className="rounded-2xl h-full"
                         width={182}
                         height={260}
-                        priority
                     />
                 </Link>
             </div>

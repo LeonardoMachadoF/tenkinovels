@@ -16,27 +16,18 @@ interface Props {
 
 const Novel = ({ novel }: Props) => {
     const [sorted, setSorted] = useState(true);
-    const [seeMore, setSeeMore] = useState(true);
+    const [seeMore, setSeeMore] = useState(false);
+
 
     const volumes: number[] = []
-    const tmpChapters = [
-        { chapter: 1, volume: 1, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
-        { chapter: 1, volume: 1, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
-        { chapter: 2, volume: 1, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
-        { chapter: 3, volume: 1, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
-        { chapter: 4, volume: 1, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
-        { chapter: 5, volume: 2, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
-        { chapter: 6, volume: 2, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
-        { chapter: 7, volume: 2, title: 'random', created_at: new Date(), scan: 'Nobody Scans' },
-        { chapter: 8, volume: 2, title: 'random', created_at: new Date(), scan: 'Nobody Scans' }
-    ]
 
-    tmpChapters.map(chapter => {
+
+    novel.chapter.map(chapter => {
         if (!volumes.includes(chapter.volume)) {
             volumes.push(chapter.volume)
         }
     });
-    tmpChapters.sort((a, b) => a.chapter > b.chapter ? -1 : 1)
+    novel.chapter.sort((a, b) => a.chapter > b.chapter ? -1 : 1)
     volumes.sort((a, b) => a > b ? -1 : 1)
 
     return (
@@ -107,16 +98,18 @@ const Novel = ({ novel }: Props) => {
                         {sorted && volumes.map((volume) => {
                             return (
                                 <NovelChapters
-                                    chapters={tmpChapters.filter(chapter => chapter.volume === volume)}
+                                    chapters={novel.chapter.filter(chapter => chapter.volume === volume)}
                                     key={volume}
+                                    type={novel.type}
                                 />
                             )
                         })}
                         {!sorted && volumes.reverse().map((volume) => {
                             return (
                                 <NovelChapters
-                                    chapters={tmpChapters.reverse().filter(chapter => chapter.volume === volume)}
+                                    chapters={novel.chapter.reverse().filter(chapter => chapter.volume === volume)}
                                     key={volume}
+                                    type={novel.type}
                                 />
                             )
                         })}

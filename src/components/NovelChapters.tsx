@@ -5,14 +5,17 @@ interface Props {
     chapters: {
         chapter: number;
         volume: number;
-        title: string;
+        title?: string | null;
         created_at: Date;
-        scan: string;
-    }[]
+        scan?: string | null;
+        slug: string;
+        id: string;
+    }[],
+    type: 'NOVEL' | 'MANGA';
 }
 
 
-export const NovelChapters = ({ chapters }: Props) => {
+export const NovelChapters = ({ chapters, type }: Props) => {
     return (
         <div className="mb-4">
             <h2 className="text-lg mb-2">Volume {numberFormatter(chapters[0].volume)}</h2>
@@ -21,10 +24,12 @@ export const NovelChapters = ({ chapters }: Props) => {
                     return (
                         <ChapterLabel
                             chapter={chapter.chapter}
-                            title={chapter.title}
+                            title={chapter.title || ''}
                             created_at={chapter.created_at}
-                            scan={chapter.scan}
-                            key={index}
+                            scan={chapter.scan || ''}
+                            key={chapter.id}
+                            type={type}
+                            slug={chapter.slug}
                         />
                     )
                 })}

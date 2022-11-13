@@ -23,6 +23,7 @@ const AdminNovel = ({ origins, genres, userId, token }: Props) => {
     const [author, setAuthor] = useState('');
     const [origin, setOrigin] = useState('');
     const [genresInput, setGenresInput] = useState<string[]>([]);
+    const [typeInput, setTypeInput] = useState<'MANGA' | 'NOVEL'>('MANGA');
     const inputRef = useRef<any>(null);
 
     const handleSubmit = async (e: FormEvent) => {
@@ -38,6 +39,7 @@ const AdminNovel = ({ origins, genres, userId, token }: Props) => {
         data.append('origin_slug', origin);
         data.append('author', author);
         data.append('image', inputRef.current.files[0]);
+        data.append('type', typeInput)
 
         try {
             let attempt = await axios.post('/api/novel', data, {
@@ -84,6 +86,7 @@ const AdminNovel = ({ origins, genres, userId, token }: Props) => {
                 </label>
 
                 <label htmlFor="origin" className='flex flex-col'>
+                    Origem
                     <select name="" id="" onChange={e => setOrigin(e.target.value)} className='text-gray-900 pl-1' required>
                         <option value=""></option>
                         {origins.map(o => {
@@ -106,10 +109,22 @@ const AdminNovel = ({ origins, genres, userId, token }: Props) => {
                     </div>
                 </label>
 
-                <label htmlFor="logo" className='flex flex-col'>
-                    <span className='w-20'>Capa</span>
-                    <input id='logo' className='text-gray-100' type="file" ref={inputRef} />
-                </label>
+                <div className='flex flex-row justify-between'>
+                    <label htmlFor="logo" className='flex flex-col'>
+                        <span className='w-20'>Capa</span>
+                        <input id='logo' className='text-gray-100' type="file" ref={inputRef} />
+                    </label>
+
+                    <label htmlFor="type" className='flex flex-col'>
+                        <span className='w-20'>Tipo</span>
+                        <select className='text-gray-900 h-10 w-20' onChange={e => setTypeInput(e.target.value as 'MANGA' | 'NOVEL')}>
+                            <option value="MANGA">Manga</option>
+                            <option value="NOVEL">Novel</option>
+                        </select>
+                    </label>
+                </div>
+
+
                 <button type="submit" className='mt-2 border rounded hover:bg-slate-100 hover:text-gray-900 transition-all'>Enviar</button>
             </form>
         </Template>
