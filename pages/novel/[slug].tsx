@@ -167,7 +167,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     return {
         props: {
             novel: JSON.parse(JSON.stringify(novel)),
-        }
+        },
+        revalidate: 60 * 60 * 2
     }
 }
 
