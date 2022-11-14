@@ -78,7 +78,7 @@ const Novel = ({ novel }: Props) => {
                                     <button className="text-sm text-gray-200 " onClick={() => setSeeMore(!seeMore)}>{seeMore ? 'Ver menos' : 'Ver mais'}</button>
                                 }
                             </div>
-                            <div className="h-[102px] md:max-w-[90vw] max-w-[50vw] w-[940px] overflow-y-scroll md:overflow-y-visible md:h-fit">
+                            <div className="h-[102px] break-all md:max-w-[90vw] max-w-[50vw] w-[940px] overflow-y-scroll md:overflow-y-visible md:h-fit">
                                 {novel.sinopse}
                             </div>
                         </div>

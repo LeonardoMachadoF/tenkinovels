@@ -12,7 +12,7 @@ export const NovelLogo = ({ data }: Props) => {
     return (
         <article className="max-w-[182px] min-w-[182px] md:w-32 md:min-w-[120px]">
             <div className="bg-black h-64 rounded-2xl md:max-h-44">
-                <Link href={`/novel/${data.slug}`}>
+                <Link href={`/title/${data.slug}`}>
                     <img
                         src={getCloudflareUrl(data.image_url)}
                         alt='Capa de nossos projetos'
@@ -23,7 +23,7 @@ export const NovelLogo = ({ data }: Props) => {
                 </Link>
             </div>
             <h1 className="px-2 mt-1 text-lg md:text-sm">
-                <Link href={`/novel/${data.slug}`}>{data.title}</Link>
+                <Link href={`/title/${data.slug}`}>{data.title}</Link>
             </h1>
         </article>
     )

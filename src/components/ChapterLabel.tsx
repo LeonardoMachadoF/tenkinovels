@@ -17,7 +17,7 @@ export const ChapterLabel = ({ chapter, title, created_at, scan, type, slug }: P
                 <div>
                     {title &&
                         <Link href={`/${type.toLowerCase()}/chapter/${slug}`}>
-                            Cap.${numberFormatter(chapter)} - Capítulo {title[0].toUpperCase() + title.substring(1)}
+                            Cap.{numberFormatter(chapter)} - Capítulo {title[0].toUpperCase() + title.substring(1)}
                         </Link>
                     }
                     {!title &&
