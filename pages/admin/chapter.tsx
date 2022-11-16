@@ -5,8 +5,8 @@ import React, { FormEvent, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import prisma from '../../src/services/backServices/prisma'
 import { handleAuthentication } from '../../src/services/backServices/handleAuthentication';
-import { Template } from '../../src/components/Template';
-import { HeadSrc } from '../../src/components/HeadSrc';
+import { Template } from '../../src/components/LayoutComponents/Template';
+import { HeadSrc } from '../../src/components/LayoutComponents/HeadSrc';
 import axios from 'axios';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
@@ -26,47 +26,70 @@ const AdminChapter = ({ contentSlug, volume, chapter, userId, type, token }: Pro
     const [chapterInput, setChapterInput] = useState('');
     const [titleInput, setTitleInput] = useState('');
 
-    // let newImage = value.replace('a href', 'img src').replace('>img</a>', '/>').replace('rel', 'alt').replace(`target="_blank"`, "class='m-auto' loading='eager'");
-    // while (newImage.indexOf('a href') > -1) {
-    //     newImage = newImage.replace('a href', 'img src').replace('>img</a>', '/>').replace('rel', 'alt').replace(`target="_blank"`, "class='m-auto' loading='lazy'");
-    // }  
+    let newImage = value.replace('a href', 'img src').replace('>img</a>', '/>').replace('rel', 'alt').replace(`target="_blank"`, "class='m-auto' loading='eager'");
+    while (newImage.indexOf('a href') > -1) {
+        newImage = newImage.replace('a href', 'img src').replace('>img</a>', '/>').replace('rel', 'alt').replace(`target="_blank"`, "class='m-auto' loading='lazy'");
+    }
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
 
         if (!value || !Number(chapterInput) || !Number(volumeInput)) return;
-
-        const data = {
-            arrayOfPages: value,
-            contentSlug,
-            volume: Number(volumeInput),
-            chapter: Number(chapterInput),
-            userId,
-            title: titleInput
-        }
-
-        try {
-            let res = await axios.post('/api/chapter', data, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            if (res.status === 201) {
-                setValue('');
+        if (type === 'MANGA') {
+            const data = {
+                arrayOfPages: value,
+                contentSlug,
+                volume: Number(volumeInput),
+                chapter: Number(chapterInput),
+                userId,
+                title: titleInput
             }
-        } catch (err: any) {
-            alert(err.response.data.message)
+
+            try {
+                let res = await axios.post('/api/chapter', data, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                if (res.status === 201) {
+                    setValue('');
+                }
+            } catch (err: any) {
+                alert(err.response.data.message)
+            }
         }
 
+        if (type === 'NOVEL') {
+            const data = {
+                content: value,
+                contentSlug,
+                volume: Number(volumeInput),
+                chapter: Number(chapterInput),
+                userId,
+                title: titleInput
+            }
 
+            try {
+                let res = await axios.post('/api/chapter', data, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                if (res.status === 201) {
+                    setValue('');
+                }
+            } catch (err: any) {
+                alert(err.response.data.message)
+            }
+        }
 
     }
 
     return (
         <Template currentPage='chapterAdmin' >
             <HeadSrc title='Novo Capítulo' />
-            <div className='text-gray-900'>
+            <div className='text-gray-900]'>
                 {type === 'MANGA' &&
-                    <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+                    <form onSubmit={(e) => handleSubmit(e)} className='flex flex-col gap-4'>
                         <label htmlFor="title" className='flex gap-2 items-center'>
                             <span className='w-20 text-gray-100'>Titulo</span>
                             <input
@@ -113,6 +136,63 @@ const AdminChapter = ({ contentSlug, volume, chapter, userId, type, token }: Pro
                         </button>
                     </form>
                 }
+                {type === 'NOVEL' &&
+                    <form onSubmit={(e) => handleSubmit(e)} className='flex flex-col gap-4'>
+                        <label htmlFor="title" className='flex gap-2 items-center'>
+                            <span className='w-20 text-gray-100'>Titulo</span>
+                            <input
+                                type="string"
+                                id='title'
+                                className='p-1 text-3xl'
+                                value={titleInput}
+                                onChange={e => setTitleInput(e.target.value)}
+                            />
+                        </label>
+                        <label htmlFor="volume" className='flex gap-2 items-center'>
+                            <span className='w-20 text-gray-100'>Volume</span>
+                            <input
+                                type="text"
+                                id='volume'
+                                className='p-1 text-3xl'
+                                value={volumeInput}
+                                onChange={e => setVolumeInput(e.target.value)}
+                            />
+                        </label>
+                        <label htmlFor="capitulo" className='flex gap-2 items-center'>
+                            <span className='w-20 text-gray-100'>Capitulo</span>
+                            <input
+                                type="text"
+                                id='capitulo'
+                                className='p-1 text-3xl'
+                                value={chapterInput}
+                                onChange={e => setChapterInput(e.target.value)}
+                            />
+                        </label>
+                        <div className=' text-gray-900'>
+                            <div className='w-[660px] max-w-[100vw] m-auto'>
+                                <ReactQuill
+                                    value={value}
+                                    onChange={setValue}
+                                    style={{
+                                        backgroundColor: '#eee',
+                                        height: '300px',
+                                        paddingBottom: '45px'
+                                    }}
+                                />
+                            </div>
+                            <pre
+                                dangerouslySetInnerHTML={{ __html: newImage }}
+                                className='w-[980px] max-w-[100vw] whitespace-pre-wrap text-gray-100'
+                            ></pre>
+                        </div>
+                        <button
+                            type="submit"
+                            className='text-gray-100'
+                        >
+                            Enviar
+                        </button>
+                    </form>
+                }
             </div>
 
 
@@ -135,15 +215,7 @@ const AdminChapter = ({ contentSlug, volume, chapter, userId, type, token }: Pro
 
 
 
-            {/* <div className=' text-gray-900'>
-                <div className='w-[660px] max-w-[100vw] m-auto'>
-                    <ReactQuill value={value} onChange={setValue} style={{ backgroundColor: '#eee', height: '300px', paddingBottom: '45px' }} />
-                </div>
-                <pre
-                    dangerouslySetInnerHTML={{ __html: newImage }}
-                    className='w-[1000px] max-w-[100vw] whitespace-pre-wrap text-gray-100'
-                ></pre>
-            </div> */}
+
         </Template>
     )
 }
@@ -178,6 +250,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
             slug: novelslug
         }
     })
+    console.log(data)
 
     if (!content) {
         return {

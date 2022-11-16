@@ -2,8 +2,8 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import nookies from 'nookies';
 import { FormEvent, useState } from "react";
-import { HeadSrc } from '../../src/components/HeadSrc';
-import { Template } from '../../src/components/Template';
+import { HeadSrc } from '../../src/components/LayoutComponents/HeadSrc';
+import { Template } from '../../src/components/LayoutComponents/Template';
 
 const Login = () => {
     const router = useRouter();

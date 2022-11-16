@@ -1,7 +1,8 @@
 import { Chapter, Page } from "@prisma/client";
 import { GetServerSideProps, GetStaticPaths } from "next";
-import { Template } from "../../../src/components/Template";
+import { Template } from "../../../src/components/LayoutComponents/Template";
 import prisma from '../../../src/services/backServices/prisma'
+import Novel from "../[slug]";
 
 interface Props {
     chapter: (Chapter & {
@@ -10,12 +11,13 @@ interface Props {
 }
 
 const MangaReader = ({ chapter }: Props) => {
+    console.log(chapter)
     return (
         <Template currentPage="chapter">
             <div>
-                {chapter.pages.map((page, index) => {
+                {!chapter.content && chapter.pages.map((page, index) => {
                     return (
-                        <div key={page.id} className="w-[1000px] m-auto min-h-[300px]">
+                        <div key={page.id} className="w-[1000px] m-auto min-h-[300px] flex justify-center">
                             <img
                                 src={page.url}
                                 alt=""
@@ -25,8 +27,17 @@ const MangaReader = ({ chapter }: Props) => {
                         </div>
                     )
                 })}
+
+                {chapter.content &&
+                    <div className="mt-10">
+                        <pre
+                            dangerouslySetInnerHTML={{ __html: chapter.content }}
+                            className='w-[980px] max-w-[100vw] whitespace-pre-wrap text-gray-100'
+                        ></pre>
+                    </div>
+                }
             </div>
-        </Template>
+        </Template >
     )
 }
 

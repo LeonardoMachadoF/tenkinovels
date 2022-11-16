@@ -4,8 +4,8 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import nookies from 'nookies';
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
-import { HeadSrc } from '../../src/components/HeadSrc';
-import { Template } from '../../src/components/Template';
+import { HeadSrc } from '../../src/components/LayoutComponents/HeadSrc';
+import { Template } from '../../src/components/LayoutComponents/Template';
 import { handleAuthentication } from '../../src/services/backServices/handleAuthentication';
 import prisma from '../../src/services/backServices/prisma'
 

@@ -1,10 +1,10 @@
 import { Novel } from '@prisma/client'
 import type { GetStaticProps } from 'next'
 import Head from 'next/head'
-import { HeadSrc } from '../src/components/HeadSrc'
+import { HeadSrc } from '../src/components/LayoutComponents/HeadSrc'
 import { LastUpdateWithChapters } from '../src/components/LastUpdateWithChapters'
 import { NovelLogo } from '../src/components/NovelLogo'
-import { Template } from '../src/components/Template'
+import { Template } from '../src/components/LayoutComponents/Template'
 import { TitleNews } from '../src/components/TitleNews'
 import prisma from '../src/services/backServices/prisma'
 

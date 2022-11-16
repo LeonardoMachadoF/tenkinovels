@@ -2,11 +2,11 @@ import axios from "axios";
 import { useRouter } from "next/router"
 import { memo, useContext, useEffect, useLayoutEffect, useState } from "react";
 import nookies from 'nookies';
-import { Icon } from "./Icons/Icon"
+import { Icon } from "../Icons/Icon"
 import Link from "next/link";
-import { AuthContext } from "../context/authContext/AuthContext";
-import { CurrentPageProps } from "../types/FrontTypes/CurrentPageProps";
-import { NovelPageNovelTypes } from "../types/FrontTypes/NovelPageNovelTypes";
+import { AuthContext } from "../../context/authContext/AuthContext";
+import { CurrentPageProps } from "../../types/FrontTypes/CurrentPageProps";
+import { NovelPageNovelTypes } from "../../types/FrontTypes/NovelPageNovelTypes";
 
 interface Props {
     currentPage: CurrentPageProps;
@@ -22,11 +22,11 @@ const Header = ({ currentPage, novel }: Props) => {
 
     const adminsOptions = {
         home: <Link href='/admin/novel' className="sm:hidden">Nova Novel</Link>,
-        novel: <Link href={`/admin/chapter?novelslug=${router.asPath.split('novel/')[1]}`} className="sm:hidden">Novo Capítulo</Link>,
+        novel: <Link href={`/admin/chapter?novelslug=${router.asPath.split('title/')[1]}`} className="sm:hidden">Novo Capítulo</Link>,
     }
 
     if (username && role === 'ADMIN' && novel && novel.chapter && novel.volume) {
-        const query = `/admin/chapter?novelslug=${router.asPath.split('novel/')[1]}&volume=${novel.volume < 10 ? `0${novel.volume}` : novel.volume}&chapter=${(novel.chapter + 1) < 10 ? `0${novel.chapter + 1}` : novel.chapter + 1}`
+        const query = `/admin/chapter?novelslug=${router.asPath.split('title/')[1]}&volume=${novel.volume < 10 ? `0${novel.volume}` : novel.volume}&chapter=${(novel.chapter + 1) < 10 ? `0${novel.chapter + 1}` : novel.chapter + 1}`
         adminsOptions.novel = <Link href={query} className="sm:hidden">Novo Capítulo</Link>
     }
 

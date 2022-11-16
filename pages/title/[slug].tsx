@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Template } from "../../src/components/Template"
+import { Template } from "../../src/components/LayoutComponents/Template"
 import { NovelChapters } from "../../src/components/NovelChapters";
 import { GetStaticPaths, GetStaticProps } from "next";
 import prisma from '../../src/services/backServices/prisma';
@@ -8,7 +8,7 @@ import { getCloudflareUrl } from "../../src/services/frontServices/getCloudflare
 import { getNovelStatus, StatusType } from "../../src/services/frontServices/getNovelStatus";
 import Link from "next/link";
 import { useState } from "react";
-import { HeadSrc } from "../../src/components/HeadSrc";
+import { HeadSrc } from "../../src/components/LayoutComponents/HeadSrc";
 
 interface Props {
     novel: NovelPageNovelTypes

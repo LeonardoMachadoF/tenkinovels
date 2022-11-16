@@ -1,5 +1,5 @@
-import { CurrentPageProps } from "../types/FrontTypes/CurrentPageProps";
-import { NovelPageNovelTypes } from "../types/FrontTypes/NovelPageNovelTypes";
+import { CurrentPageProps } from "../../types/FrontTypes/CurrentPageProps";
+import { NovelPageNovelTypes } from "../../types/FrontTypes/NovelPageNovelTypes";
 import { Footer } from "./Footer"
 import Header from "./Header"
 
