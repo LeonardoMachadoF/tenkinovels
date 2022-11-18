@@ -11,17 +11,18 @@ interface Props {
 export const NovelLogo = ({ data }: Props) => {
     return (
         <article className="max-w-[182px] min-w-[182px] md:w-32 md:min-w-[120px]">
-            <div className="bg-black h-64 rounded-2xl md:max-h-44">
-                <Link href={`/title/${data.slug}`}>
-                    <img
+            <Link href={`/title/${data.slug}`}>
+                <div className="h-64 rounded-2xl md:max-h-44 relative">
+                    <Image
                         src={getCloudflareUrl(data.image_url)}
                         alt='Capa de nossos projetos'
-                        className="rounded-2xl h-full"
-                        width={182}
-                        height={260}
+                        className="rounded-2xl"
+                        fill
+                        sizes='(max-width: 760px) 18vw, (min-width: 761px) 22vw,'
+                        priority
                     />
-                </Link>
-            </div>
+                </div>
+            </Link>
             <h1 className="px-2 mt-1 text-lg md:text-sm">
                 <Link href={`/title/${data.slug}`}>{data.title}</Link>
             </h1>

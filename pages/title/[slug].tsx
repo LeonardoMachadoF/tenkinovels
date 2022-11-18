@@ -42,6 +42,7 @@ const Novel = ({ novel }: Props) => {
                                 <Image
                                     src={getCloudflareUrl(novel.image_url)}
                                     fill
+                                    sizes='20vw'
                                     alt='Capa da novel'
                                     priority
                                 />
