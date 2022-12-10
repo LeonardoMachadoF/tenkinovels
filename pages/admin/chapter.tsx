@@ -87,7 +87,7 @@ const AdminChapter = ({ contentSlug, volume, chapter, userId, type, token }: Pro
     return (
         <Template currentPage='chapterAdmin' >
             <HeadSrc title='Novo Capítulo' />
-            <div className='text-gray-900]'>
+            <div className='text-gray-[900] flex flex-col '>
                 {type === 'MANGA' &&
                     <form onSubmit={(e) => handleSubmit(e)} className='flex flex-col gap-4'>
                         <label htmlFor="title" className='flex gap-2 items-center'>
@@ -137,7 +137,7 @@ const AdminChapter = ({ contentSlug, volume, chapter, userId, type, token }: Pro
                     </form>
                 }
                 {type === 'NOVEL' &&
-                    <form onSubmit={(e) => handleSubmit(e)} className='flex flex-col gap-4'>
+                    <form onSubmit={(e) => handleSubmit(e)} className='flex flex-col gap-4 w-[660px] max-w-[100vw] m-auto'>
                         <label htmlFor="title" className='flex gap-2 items-center'>
                             <span className='w-20 text-gray-100'>Titulo</span>
                             <input
@@ -194,23 +194,6 @@ const AdminChapter = ({ contentSlug, volume, chapter, userId, type, token }: Pro
                     </form>
                 }
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
